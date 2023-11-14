@@ -12,8 +12,23 @@ class Anasayfa extends StatefulWidget {
 
 class _AnasayfaState extends State<Anasayfa> {
   bool aramaYapiliyorMu = false;
+  Future<List<Kisiler>> kisileriYukle() async{
+    var kisilerListesi = <Kisiler>[];
+    var k1 = Kisiler(kisi_id: 1, kisi_adi: "Ahmet", kisi_tel: "11111");
+    var k2 = Kisiler(kisi_id: 2, kisi_adi: "Zeynep", kisi_tel: "22222");
+    var k3 = Kisiler(kisi_id: 3, kisi_adi: "Beyzaa", kisi_tel: "333333");
+    kisilerListesi.add(k1);
+    kisilerListesi.add(k2);
+    kisilerListesi.add(k3);
+
+    return kisilerListesi;
+  }
   Future<void> ara(String aramaKelimesi) async {
     print("Kişi ara: $aramaKelimesi");
+  }
+  Future<void> sil(int kisi_id) async{
+    print("Kişi sil : $kisi_id");
+
   }
   @override
   Widget build(BuildContext context) {
@@ -25,36 +40,89 @@ class _AnasayfaState extends State<Anasayfa> {
             setState(() {
               aramaYapiliyorMu = false;
             });
-          }, icon: Icon(Icons.clear) ) :
+          }, icon: const Icon(Icons.clear) ) :
           IconButton(onPressed: () {
             setState(() {
               aramaYapiliyorMu = true;
             });
-          }, icon: Icon(Icons.search) )
+          }, icon: const Icon(Icons.search) )
         ],
         title: aramaYapiliyorMu ?
         TextField(
-          decoration: InputDecoration(hintText: "Ara"),
+          decoration: const InputDecoration(hintText: "Ara"),
           onChanged: (aramaSonucu) {
             ara(aramaSonucu);
           },
         ) :
         const Text("Kişiler"),
       ),
-      body: ElevatedButton(onPressed: () {
-        var kisi = Kisiler(kisi_id: 1, kisi_adi: "Ahmet", kisi_tel: "054168");
-        Navigator.push(context, MaterialPageRoute(builder: (context) => DetaySayfa(kisi:kisi)))
-        .then((value){
-          print("Anasayfaya dönüldü");
+      body: FutureBuilder<List<Kisiler>>(
+        future: kisileriYukle(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            var kisilerListesi = snapshot.data;
+            return ListView.builder(
+              itemCount: kisilerListesi!.length,
+              itemBuilder: (context, index) {
+                var kisi = kisilerListesi[index];
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => DetaySayfa(kisi: kisi)));
 
-        });
+                  },
+                  child: Card(
+                    child:SizedBox(
+                      height: 100,
+                      child: Row(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(kisi.kisi_adi,style: const TextStyle(fontSize: 20),),
+                                Text(kisi.kisi_tel)
+                              ],
+                            ),
+                          ),
+                          const Spacer(),
+                          IconButton(onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text("${kisi.kisi_adi} silinsin mi?"),
+                                action: SnackBarAction(label: "Evet", onPressed: () {
+                                  sil(kisi.kisi_id);
+                                },) ,
+                              ),
+                            );
 
-      }, child: const Text("Detay"),),
+                          }, icon: const Icon(Icons.clear,color: Colors.black54,)),
+                        ],
+                      ),
+                    ),
+
+                    /* ListTile(
+                      subtitle: Text(kisi.kisi_tel),
+                      title: Text(kisi.kisi_adi),
+                      trailing: Icon(Icons.close),
+
+                    ),*/
+                  ),
+                );
+              },
+            );
+          }else{
+            return const Center();
+
+          }
+        },
+      ),
 
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) => KayitSayfa()))
+          Navigator.push(context, MaterialPageRoute(builder: (context) => const KayitSayfa()))
           .then((value){
             print("Anasayfaya dönüldü");
           });
