@@ -8,6 +8,3 @@ class Kisiler{
     required this.kisi_adi,
     required this.kisi_tel});
 }
-
-
-

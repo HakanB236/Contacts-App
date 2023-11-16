@@ -14,9 +14,9 @@ class _AnasayfaState extends State<Anasayfa> {
   bool aramaYapiliyorMu = false;
   Future<List<Kisiler>> kisileriYukle() async{
     var kisilerListesi = <Kisiler>[];
-    var k1 = Kisiler(kisi_id: 1, kisi_adi: "Ahmet", kisi_tel: "11111");
-    var k2 = Kisiler(kisi_id: 2, kisi_adi: "Zeynep", kisi_tel: "22222");
-    var k3 = Kisiler(kisi_id: 3, kisi_adi: "Beyzaa", kisi_tel: "333333");
+    var k1 = Kisiler(kisi_id: 1, kisi_adi: "Ahmet", kisi_tel: "1111");
+    var k2 = Kisiler(kisi_id: 2, kisi_adi: "Zeynep", kisi_tel: "2222");
+    var k3 = Kisiler(kisi_id: 3, kisi_adi: "Beyza", kisi_tel: "3333");
     kisilerListesi.add(k1);
     kisilerListesi.add(k2);
     kisilerListesi.add(k3);
