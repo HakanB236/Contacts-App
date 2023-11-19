@@ -1,4 +1,5 @@
 import 'package:contacts_app/ui/cubit/anasayfa_cubit.dart';
+import 'package:contacts_app/ui/cubit/detay_sayfa_cubit.dart';
 import 'package:contacts_app/ui/cubit/kayit_sayfa_cubit.dart';
 import 'package:contacts_app/ui/screens/anasayfa.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => KayitSayfaCubit(),),
+        BlocProvider(create: (context) => KayitSayfaCubit()),
+        BlocProvider(create: (context) => DetaySayfaCubit()),
+        BlocProvider(create: (context) => AnaSayfaCubit()),
       ],
       child: MaterialApp(
         title: 'Flutter Demo',

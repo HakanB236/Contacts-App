@@ -1,10 +1,12 @@
 import 'package:contacts_app/data/entity/kisiler.dart';
+import 'package:contacts_app/ui/cubit/detay_sayfa_cubit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetaySayfa extends StatefulWidget {
   Kisiler kisi;
 
-  DetaySayfa({required this.kisi});
+  DetaySayfa({super.key, required this.kisi});
 
   @override
   State<DetaySayfa> createState() => _DetaySayfaState();
@@ -13,9 +15,6 @@ class DetaySayfa extends StatefulWidget {
 class _DetaySayfaState extends State<DetaySayfa> {
   var tfKisiAdi = TextEditingController();
   var tfKisiTel = TextEditingController();
-  Future<void> guncelle (int kisi_id , String kisi_ad , String kisi_tel) async {
-    print("Kişi güncelle : $kisi_id - $kisi_tel - $kisi_ad");
-  }
   @override
   void initState() {
     super.initState();
@@ -33,12 +32,13 @@ class _DetaySayfaState extends State<DetaySayfa> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextField(controller: tfKisiAdi,decoration: InputDecoration(hintText: "Kişi ad"),),
-              TextField(controller: tfKisiTel,decoration: InputDecoration(hintText: "Kişi tel"),),
-              ElevatedButton(onPressed: () {
-                guncelle(widget.kisi.kisi_id, tfKisiAdi.text, tfKisiTel.text);
 
-              }, child: Text("Güncelle")),
+              TextField(controller: tfKisiAdi,decoration: const InputDecoration(hintText: "Kişi ad"),),
+              TextField(controller: tfKisiTel,decoration: const InputDecoration(hintText: "Kişi tel"),),
+              ElevatedButton(onPressed: () {
+                context.read<DetaySayfaCubit>().guncelle(widget.kisi.kisi_id, tfKisiAdi.text, tfKisiTel.text);
+
+              }, child: const Text("Güncelle")),
             ],
           ),
         ),

@@ -22,12 +22,12 @@ class _KayitSayfaState extends State<KayitSayfa> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextField(controller: tfKisiAdi,decoration: InputDecoration(hintText: "Kişi ad"),),
-              TextField(controller: tfKisiTel,decoration: InputDecoration(hintText: "Kişi tel"),),
+              TextField(controller: tfKisiAdi,decoration: const InputDecoration(hintText: "Kişi ad"),),
+              TextField(controller: tfKisiTel,decoration: const InputDecoration(hintText: "Kişi tel"),),
               ElevatedButton(onPressed: () {
                 context.read<KayitSayfaCubit>().kaydet(tfKisiAdi.text, tfKisiTel.text);
 
-              }, child: Text("Kaydet")),
+              }, child: const Text("Kaydet")),
             ],
           ),
         ),
