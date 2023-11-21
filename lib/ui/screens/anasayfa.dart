@@ -20,7 +20,7 @@ class _AnasayfaState extends State<Anasayfa> {
   @override
   void initState() {
     super.initState();
-    context.read<AnaSayfaCubit>().kisileriYukle();
+    context.read<AnaSayfaCubit>().kisileriYukle(); // başlangıçta boş bir liste döndürmemesi adına initte çağırılır.
   }
   @override
   Widget build(BuildContext context) {
