@@ -19,7 +19,7 @@ class AnaSayfaCubit extends Cubit<List<Kisiler>>{
   }
   Future<void> sil(int kisi_id) async{
     await kRepo.sil(kisi_id);
-    kisileriYukle();
+    kisileriYukle(); // bunu eklememizin sebebi silme tamamlanınca kisilerin yüklenmesi için
   }
 
 

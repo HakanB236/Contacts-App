@@ -20,7 +20,7 @@ class _AnasayfaState extends State<Anasayfa> {
   @override
   void initState() {
     super.initState();
-    context.read<AnaSayfaCubit>().kisileriYukle(); // başlangıçta boş bir liste döndürmemesi adına initte çağırılır.
+    context.read<AnaSayfaCubit>().kisileriYukle(); // başlangıçta repomuzdan boş bir liste gelmemesi adına initte çağırılır.
   }
   @override
   Widget build(BuildContext context) {
@@ -107,11 +107,9 @@ class _AnasayfaState extends State<Anasayfa> {
             );
           }else{
             return const Center();
-
           }
         },
       ),
-
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
